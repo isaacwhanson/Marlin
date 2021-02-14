@@ -30,7 +30,7 @@
  * Verbose version identifier which should contain a reference to the location
  * from where the binary was downloaded or the source code was compiled.
  */
-#define DETAILED_BUILD_VERSION "apex_2.0.8-pre.1"
+#define DETAILED_BUILD_VERSION "ap3x_2.0.8-pre.1"
 
 /**
  * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
@@ -42,7 +42,7 @@
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
  */
-#define MACHINE_NAME "APEX"
+#define MACHINE_NAME "AP3X"
 
 /**
  * The SOURCE_CODE_URL is the location where users will find the Marlin Source

@@ -21,32 +21,28 @@
  */
 #pragma once
 
-////////////////////////////
-// VENDOR VERSION EXAMPLE //
-////////////////////////////
-
 /**
  * Marlin release version identifier
  */
-#define SHORT_BUILD_VERSION "2.0.7.2-bugfix_predator"
+#define SHORT_BUILD_VERSION "bugfix-2.0.x"
+
+/**
+ * Verbose version identifier which should contain a reference to the location
+ * from where the binary was downloaded or the source code was compiled.
+ */
+#define DETAILED_BUILD_VERSION "apex_2.0.8-pre.1"
 
 /**
  * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
  * here we define this default string as the date where the latest release
  * version was tagged.
  */
-#define STRING_DISTRIBUTION_DATE "2021-02-14"
-
-/**
- * Verbose version identifier which should contain a reference to the location
- * from where the binary was downloaded or the source code was compiled.
- */
-#define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION STRING_DISTRIBUTION_DATE
+//#define STRING_DISTRIBUTION_DATE "2019-07-10"
 
 /**
  * Defines a generic printer name to be output to the LCD after booting Marlin.
  */
-#define MACHINE_NAME "PREDATOR"
+#define MACHINE_NAME "APEX"
 
 /**
  * The SOURCE_CODE_URL is the location where users will find the Marlin Source
@@ -59,7 +55,7 @@
 /**
  * Default generic printer UUID.
  */
-//#define DEFAULT_MACHINE_UUID "cede2a2f-41a2-4748-9b12-c55c62f367ff"
+#define DEFAULT_MACHINE_UUID "56779fac-0e16-4c6a-8987-9e8dd763ed1b"
 
 /**
  * The WEBSITE_URL is the location where users can get more information such as

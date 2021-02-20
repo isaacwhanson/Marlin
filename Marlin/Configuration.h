@@ -136,8 +136,8 @@
 #endif
 
 // Swapped on the predator
-#define Z_MIN_PIN PA14
-#define Z_MAX_PIN PA13
+#define Z_MIN_PIN PA13
+#define Z_MAX_PIN PA14
 
 // Name displayed in the LCD "Ready" message and Info menu
 //#define CUSTOM_MACHINE_NAME "AP3X"

@@ -5,8 +5,18 @@
 import os,re,sys
 Import("env")
 
-def get_envs_for_board(board, envregex):
+def get_envs_for_board(board):
 	with open(os.path.join("Marlin", "src", "pins", "pins.h"), "r") as file:
+
+		if sys.platform == 'win32':
+			envregex = r"(?:env|win):"
+		elif sys.platform == 'darwin':
+			envregex = r"(?:env|mac|uni):"
+		elif sys.platform == 'linux':
+			envregex = r"(?:env|lin|uni):"
+		else:
+			envregex = r"(?:env):"
+
 		r = re.compile(r"if\s+MB\((.+)\)")
 		if board.startswith("BOARD_"):
 			board = board[6:]
@@ -17,7 +27,8 @@ def get_envs_for_board(board, envregex):
 				line = file.readline()
 				found_envs = re.match(r"\s*#include .+" + envregex, line)
 				if found_envs:
-					return re.findall(envregex + r"(\w+)", line)
+					envlist = re.findall(envregex + r"(\w+)", line)
+					return [ "env:"+s for s in envlist ]
 	return []
 
 def check_envs(build_env, board_envs, config):
@@ -43,24 +54,15 @@ if 'MARLIN_FEATURES' not in env:
 if 'MOTHERBOARD' not in env['MARLIN_FEATURES']:
 	raise SystemExit("Error: MOTHERBOARD is not defined in Configuration.h")
 
-if sys.platform == 'win32':
-	osregex = r"(?:env|win):"
-elif sys.platform == 'darwin':
-	osregex = r"(?:env|mac|uni):"
-elif sys.platform == 'linux':
-	osregex = r"(?:env|lin|uni):"
-else:
-	osregex = r"(?:env):"
-
 build_env = env['PIOENV']
 motherboard = env['MARLIN_FEATURES']['MOTHERBOARD']
-board_envs = get_envs_for_board(motherboard, osregex)
+board_envs = get_envs_for_board(motherboard)
 config = env.GetProjectConfig()
-result = check_envs(build_env, board_envs, config)
+result = check_envs("env:"+build_env, board_envs, config)
 
 if not result:
 	err = "Error: Build environment '%s' is incompatible with %s. Use one of these: %s" % \
-		  (build_env, motherboard, ",".join([e[4:] for e in board_envs if re.match(r"^" + osregex, e)]))
+		  ( build_env, motherboard, ", ".join([ e[4:] for e in board_envs if e.startswith("env:") ]) )
 	raise SystemExit(err)
 
 #
@@ -71,3 +73,15 @@ for p in [ env['PROJECT_DIR'], os.path.join(env['PROJECT_DIR'], "config") ]:
 		if os.path.isfile(os.path.join(p, f)):
 			err = "ERROR: Config files found in directory %s. Please move them into the Marlin subfolder." % p
 			raise SystemExit(err)
+
+#
+# Check for old files indicating an entangled Marlin (mixing old and new code)
+#
+mixedin = []
+for p in [ os.path.join(env['PROJECT_DIR'], "Marlin/src/lcd/dogm") ]:
+	for f in [ "ultralcd_DOGM.cpp", "ultralcd_DOGM.h" ]:
+		if os.path.isfile(os.path.join(p, f)):
+			mixedin += [ f ]
+if mixedin:
+	err = "ERROR: Old files fell into your Marlin folder. Remove %s and try again" % ", ".join(mixedin)
+	raise SystemExit(err)

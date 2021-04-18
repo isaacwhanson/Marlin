@@ -1751,11 +1751,11 @@
 //
 #if TFT_SCALED_DOGLCD
   #define TFT_MARLINUI_COLOR 0xBDD7 // White
-  #define TFT_MARLINBG_COLOR 0x0841 // Black
-  #define TFT_DISABLED_COLOR 0x3186 // Dark Gray
-  #define TFT_BTCANCEL_COLOR 0xFCF6 // Red
-  #define TFT_BTARROWS_COLOR 0xDD8D // Yellow
-  #define TFT_BTOKMENU_COLOR 0x8E4F // Green
+  #define TFT_MARLINBG_COLOR 0x0020 // Black
+  #define TFT_DISABLED_COLOR 0x2124 // Dark Gray
+  #define TFT_BTCANCEL_COLOR 0xD412 // Red
+  #define TFT_BTARROWS_COLOR 0xB4AA // Yellow
+  #define TFT_BTOKMENU_COLOR 0x752C // Green
 #endif
 
 //

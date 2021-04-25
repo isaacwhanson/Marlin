@@ -24,7 +24,7 @@
 /**
  * Marlin release version identifier
  */
-#define SHORT_BUILD_VERSION "ap3x_2.0.8-pre.7"
+#define SHORT_BUILD_VERSION "ap3x_2.0.8-pre.8"
 
 /**
  * Verbose version identifier which should contain a reference to the location
